@@ -13,7 +13,6 @@ class ViewportColumnsCalculator {
    * @type {Number}
    */
   static get DEFAULT_WIDTH() {
-    // return 50;
     return 36;
   }
 

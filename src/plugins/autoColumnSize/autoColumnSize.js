@@ -62,7 +62,7 @@ const privatePool = new WeakMap();
  */
 class AutoColumnSize extends BasePlugin {
   static get CALCULATION_STEP() {
-    return 50;
+    return 36;
   }
 
   static get SYNC_CALCULATION_LIMIT() {
