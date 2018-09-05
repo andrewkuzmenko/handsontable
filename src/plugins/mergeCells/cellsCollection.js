@@ -1,6 +1,7 @@
 import MergedCellCoords from './cellCoords';
 import {CellCoords, CellRange} from '../../3rdparty/walkontable/src/index';
-import {rangeEach} from '../../helpers/number';
+import {rangeEach, rangeEachReverse} from '../../helpers/number';
+import {warn} from '../../helpers/console';
 import {arrayEach} from '../../helpers/array';
 import {applySpanProperties} from './utils';
 import {toSingleLine} from './../../helpers/templateLiteralTag';
@@ -296,8 +297,10 @@ class MergedCellsCollection {
       currentMerge.shift(shiftVector, index);
     });
 
-    arrayEach(this.mergedCells, (currentMerge) => {
-      if (currentMerge.removed) {
+    rangeEachReverse(this.mergedCells.length - 1, 0, (i) => {
+      let currentMerge = this.mergedCells[i];
+
+      if (currentMerge && currentMerge.removed) {
         this.mergedCells.splice(this.mergedCells.indexOf(currentMerge), 1);
       }
     });
