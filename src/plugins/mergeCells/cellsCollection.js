@@ -1,7 +1,6 @@
 import MergedCellCoords from './cellCoords';
 import {CellCoords, CellRange} from '../../3rdparty/walkontable/src/index';
 import {rangeEach, rangeEachReverse} from '../../helpers/number';
-import {warn} from '../../helpers/console';
 import {arrayEach} from '../../helpers/array';
 import {applySpanProperties} from './utils';
 import {toSingleLine} from './../../helpers/templateLiteralTag';
