@@ -66,7 +66,7 @@ class AutoColumnSize extends BasePlugin {
   }
 
   static get SYNC_CALCULATION_LIMIT() {
-    return 50;
+    return 36;
   }
 
   constructor(hotInstance) {
