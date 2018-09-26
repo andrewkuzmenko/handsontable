@@ -41,13 +41,14 @@ class Menu {
     this.menuItems = null;
     this.origOutsideClickDeselects = null;
     this.keyEvent = false;
-
+    this.MENU_ROW_HEIGHT = 38;
     this.offset = {
       above: 0,
       below: 0,
       left: 0,
       right: 0
     };
+
     this._afterScrollCallback = null;
 
     this.registerEvents();
@@ -106,7 +107,7 @@ class Menu {
     let settings = {
       data: filteredItems,
       colHeaders: false,
-      colWidths: [215],
+      colWidths: [297],
       autoRowSize: false,
       readOnly: true,
       copyPaste: false,
@@ -125,7 +126,7 @@ class Menu {
           this.openSubMenu(coords.row);
         }
       },
-      rowHeights: (row) => (filteredItems[row].name === SEPARATOR ? 1 : 23)
+      rowHeights: (row) => (filteredItems[row].name === SEPARATOR ? 1 : this.MENU_ROW_HEIGHT + 1)
     };
     this.origOutsideClickDeselects = this.hot.getSettings().outsideClickDeselects;
     this.hot.getSettings().outsideClickDeselects = false;
@@ -650,9 +651,9 @@ class Menu {
     const holderStyle = this.hotMenu.view.wt.wtTable.holder.style;
     let currentHiderWidth = parseInt(hiderStyle.width, 10);
 
-    let realHeight = arrayReduce(data, (accumulator, value) => accumulator + (value.name === SEPARATOR ? 1 : 26), 0);
+    let realHeight = arrayReduce(data, (accumulator, value) => accumulator + (value.name === SEPARATOR ? 1 : this.MENU_ROW_HEIGHT + 4), 0);
 
-    holderStyle.width = `${currentHiderWidth + 22}px`;
+    holderStyle.width = `${currentHiderWidth + this.MENU_ROW_HEIGHT}px`;
     holderStyle.height = `${realHeight + 4}px`;
     hiderStyle.height = holderStyle.height;
   }
