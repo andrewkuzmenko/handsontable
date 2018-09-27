@@ -205,14 +205,19 @@ class TableRenderer {
       if (TR.firstChild) {
         // if I have 2 fixed columns with one-line content and the 3rd column has a multiline content, this is
         // the way to make sure that the overlay will has same row height
+        const TDs = TR.querySelectorAll('td');
+        const heightHandlerIndex = Object.keys(TDs)
+          .find((el, i) => TDs[i].colSpan < 2 && TDs[i].rowSpan < 2 && TDs[i].style.display !== 'none');
+        const heightHandler = heightHandlerIndex ? TDs[heightHandlerIndex] : TR.firstChild;
+
         let height = this.wot.wtTable.getRowHeight(sourceRowIndex);
 
         if (height) {
           // Decrease height. 1 pixel will be "replaced" by 1px border top
           height--;
-          TR.firstChild.style.height = `${height}px`;
+          heightHandler.style.height = `${height}px`;
         } else {
-          TR.firstChild.style.height = '';
+          heightHandler.style.height = '';
         }
       }
       visibleRowIndex++;
