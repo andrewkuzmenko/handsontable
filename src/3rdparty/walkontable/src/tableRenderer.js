@@ -208,7 +208,7 @@ class TableRenderer {
         const TDs = TR.querySelectorAll('td');
         const heightHandlerIndex = Object.keys(TDs)
           .find((el, i) => TDs[i].colSpan < 2 && TDs[i].rowSpan < 2 && TDs[i].style.display !== 'none');
-        const heightHandler = heightHandlerIndex ? TDs[heightHandlerIndex] : TR.firstChild;
+        const heightHandler = heightHandlerIndex && (TR.firstChild.tagName !== 'TH') ? TDs[heightHandlerIndex] : TR.firstChild;
 
         let height = this.wot.wtTable.getRowHeight(sourceRowIndex);
 
