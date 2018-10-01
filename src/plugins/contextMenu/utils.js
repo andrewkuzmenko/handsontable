@@ -74,8 +74,20 @@ export function getAlignmentClasses(ranges, callback) {
   const classes = {};
 
   arrayEach(ranges, ({from, to}) => {
-    for (let row = from.row; row <= to.row; row++) {
-      for (let col = from.col; col <= to.col; col++) {
+    let fromRow = from.row;
+    let toRow = to.row;
+    let fromCol = from.col;
+    let toCol = to.col;
+    if (fromRow > toRow) {
+      fromRow = to.row;
+      toRow = from.row;
+    }
+    if (fromCol > toCol) {
+      fromCol = to.col;
+      toCol = from.col;
+    }
+    for (let row = fromRow; row <= toRow; row++) {
+      for (let col = fromCol; col <= toCol; col++) {
         if (!classes[row]) {
           classes[row] = [];
         }
@@ -89,11 +101,23 @@ export function getAlignmentClasses(ranges, callback) {
 
 export function align(ranges, type, alignment, cellDescriptor, propertySetter) {
   arrayEach(ranges, ({from, to}) => {
-    if (from.row == to.row && from.col == to.col) {
+    let fromRow = from.row;
+    let toRow = to.row;
+    let fromCol = from.col;
+    let toCol = to.col;
+    if (fromRow > toRow) {
+      fromRow = to.row;
+      toRow = from.row;
+    }
+    if (fromCol > toCol) {
+      fromCol = to.col;
+      toCol = from.col;
+    }
+    if (from.row === to.row && from.col === to.col) {
       applyAlignClassName(from.row, from.col, type, alignment, cellDescriptor, propertySetter);
     } else {
-      for (let row = from.row; row <= to.row; row++) {
-        for (let col = from.col; col <= to.col; col++) {
+      for (let row = fromRow; row <= toRow; row++) {
+        for (let col = fromCol; col <= toCol; col++) {
           applyAlignClassName(row, col, type, alignment, cellDescriptor, propertySetter);
         }
       }
